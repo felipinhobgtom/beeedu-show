@@ -2,26 +2,446 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --font-poppins: "Poppins", sans-serif;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+  body {
+    @apply bg-background text-foreground;
+    line-height: 1.6;
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6699ff;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5588ee;
+}
+
+/* Focus styles for accessibility */
+.focus-visible\:ring-2:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+/* Optimized animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Optimized shimmer animation */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.badge-shimmer {
+  animation: shimmer 4s infinite;
+  animation-delay: var(--shimmer-delay, 0s);
+}
+
+/* Enhanced rainbow effects */
+@keyframes subtleRainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.rainbow-text {
+  background: linear-gradient(
+    135deg,
+    rgba(102, 153, 255, 0.8),
+    rgba(34, 197, 94, 0.8),
+    rgba(250, 204, 21, 0.8),
+    rgba(239, 68, 68, 0.8),
+    rgba(102, 153, 255, 0.8)
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: subtleRainbow 6s ease-in-out infinite;
+}
+
+.rainbow-border {
+  position: relative;
+  border: 1px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(
+      135deg,
+      rgba(102, 153, 255, 0.2),
+      rgba(34, 197, 94, 0.2),
+      rgba(250, 204, 21, 0.2),
+      rgba(239, 68, 68, 0.2),
+      rgba(102, 153, 255, 0.2)
+    )
+    border-box;
+  background-size: 300% 300%;
+  animation: subtleRainbow 6s ease-in-out infinite;
+}
+
+.rainbow-ring {
+  position: relative;
+}
+
+.rainbow-ring::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 105, 180, 0.4),
+    rgba(138, 43, 226, 0.4),
+    rgba(75, 0, 130, 0.4),
+    rgba(255, 105, 180, 0.4)
+  );
+  background-size: 300% 300%;
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  animation: subtleRainbow 4s ease-in-out infinite;
+}
+
+.rainbow-glow {
+  box-shadow: 0 0 12px rgba(255, 105, 180, 0.12), 0 0 24px rgba(138, 43, 226, 0.08);
+}
+
+/* Hardware acceleration for better performance */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #6699ff 0%, #2f4a60 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Poppins font utility */
+.font-poppins {
+  font-family: var(--font-poppins);
+}
+
+/* Force visibility and proper layering */
+.ecosystem-card,
+.team-member,
+.chart-item,
+.badge-card,
+.companies-content,
+.gamification-title,
+.gamification-text,
+.business-content,
+.business-card,
+.showcase-card,
+.feature-category {
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* Smooth transitions for all interactive elements */
+.team-member,
+.ecosystem-card,
+.business-card,
+.showcase-card,
+.feature-category {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure proper section spacing */
+section {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding-top: clamp(2rem, 4vw, 3rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+/* Remove any hidden overflow issues */
+.container {
+  overflow: visible;
+}
+
+/* Progress bar improvements */
+.chart-item .w-full {
+  background: linear-gradient(90deg, #f3f4f6, #e5e7eb);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Enhanced button styles */
+button {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .grid {
+    gap: 1rem;
+  }
+
+  section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .text-4xl {
+    font-size: 2rem;
+    line-height: 2.25rem;
+  }
+
+  .text-6xl {
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  .text-7xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .grid-cols-2 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .flex-row {
+    flex-direction: column;
+  }
+
+  .gap-6 {
+    gap: 1rem;
+  }
+
+  .py-12 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .mb-10 {
+    margin-bottom: 1.5rem;
+  }
+
+  .mb-8 {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Performance optimizations */
+* {
+  transform: translateZ(0);
+}
+
+.gsap-animation {
+  will-change: transform, opacity;
+}
+
+/* Clean up any remaining spacing issues */
+.space-y-1\.5 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0.375rem;
+}
+
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0.5rem;
+}
+
+/* Ensure no invisible sections */
+[style*="display: none"],
+[style*="visibility: hidden"],
+[style*="opacity: 0"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Final polish */
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Fix z-index stacking issues */
+.showcase-card,
+.feature-category,
+.business-card,
+.ecosystem-card {
+  isolation: isolate;
+  position: relative;
+  z-index: 10;
+}
+
+/* Ensure proper spacing between sections */
+section + section {
+  margin-top: 0;
+}
+
+/* Fix any remaining margin issues */
+.container {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Prevent background effects from interfering */
+.background-effects {
+  z-index: 0 !important;
+}
+
+/* Ensure cards don't overlap */
+.grid > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Fix blue card specific issues */
+.showcase-card:nth-child(3),
+.feature-category:nth-child(2) {
+  z-index: 15 !important;
+  isolation: isolate;
+}
+
+/* Remove any problematic transforms */
+.showcase-card:hover,
+.feature-category:hover {
+  transform: translateY(-2px) scale(1.02);
+  z-index: 20;
+}
+
+/* Ensure proper section boundaries */
+section {
+  clear: both;
+  overflow: visible;
+}
+
+/* Fix any margin collapse issues */
+.mb-16 {
+  margin-bottom: 4rem !important;
+}
+
+.mb-12 {
+  margin-bottom: 3rem !important;
+}
+
+.py-16 {
+  padding-top: 4rem !important;
+  padding-bottom: 4rem !important;
 }
