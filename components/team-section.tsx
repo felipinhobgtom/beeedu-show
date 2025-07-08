@@ -21,7 +21,7 @@ const teamMembers = [
     role: "Desenvolvedor Fullstack",
     description: "Especialista em desenvolvimento completo, do front-end ao back-end",
     avatar:
-      "https://cdn.discordapp.com/attachments/997203135732920351/1391260432311783494/image.png?ex=686b3fbf&is=6869ee3f&hm=11fb865c25f4751656c6abbc6ebaa3058f5d103b608f1aaad75bf27227a37b87&",
+      "/felipe.png",
     color: "from-[#22C55E] to-[#16A34A]",
     fallback: "FB",
   },
@@ -174,7 +174,7 @@ export default function TeamSection() {
           <div className="team-photo mb-12">
             <div className="relative max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/team-beeedu-new.png"
+                src="/post.jpg"
                 alt="Equipe Beeedu - Os desenvolvedores e colaboradores por trás da plataforma"
                 width={800}
                 height={500}
